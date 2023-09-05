@@ -1,0 +1,6 @@
+node_modules/
+.vscode/
+.env.prod
+.env.dev
+.env
+env.example

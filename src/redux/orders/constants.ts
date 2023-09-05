@@ -1,0 +1,9 @@
+export enum OrderActionTypes {
+    API_RESPONSE_SUCCESS = '@@orders/API_RESPONSE_SUCCESS',
+    API_RESPONSE_ERROR = '@@orders/API_RESPONSE_ERROR',
+
+    ORDER_GET_ALL = '@@orders/ORDER_GET_ALL',
+    ORDER_GET_ONE = '@@orders/ORDER_GET_ONE',
+    ORDER_PRINT_COMMAND_GET = '@@orders/ORDER_PRINT_COMMAND_GET',
+    ORDER_GET_HISTORY = '@@orders/ORDER_GET_HISTORY'
+}
