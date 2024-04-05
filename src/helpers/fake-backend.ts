@@ -26,7 +26,7 @@ const expirationInSeconds = currentDate.getTime() / 1000;
 var mock = new MockAdapter(axios, { onNoMatch: 'passthrough' });
 
 
-export async function  configureFakeBackend() {
+export async function configureFakeBackend() {
     let users: User[] = [
         {
             email: 'test',
@@ -35,7 +35,7 @@ export async function  configureFakeBackend() {
             role: Role.ADMIN,
             branchIds: [1],
             scopes: [],
-            token:  { value: TOKEN, expire: expirationInSeconds },
+            token: { value: TOKEN, expire: expirationInSeconds },
             refreshToken: { value: TOKEN, expire: expirationInSeconds }
         },
     ];
@@ -55,7 +55,12 @@ export async function  configureFakeBackend() {
             id: 1,
             name: "Test Brand",
             logoSmall: ""
-        }
+        },
+        {
+            id: 2,
+            name: "Test Brand 2",
+            logoSmall: ""
+        },
     ];
 
     let deliveryApps: MenuApp[] = [
@@ -63,15 +68,30 @@ export async function  configureFakeBackend() {
             app: "PY",
             appId: "99999",
             active: false
+        },
+        {
+            app: "RP",
+            appId: "99998",
+            active: false
+        },
+        {
+            app: "MP",
+            appId: "99997",
+            active: false
+        },
+        {
+            app: "UE",
+            appId: "99996",
+            active: false
         }
     ];
 
     mock.onPost('/auth').reply(function (config) {
         return new Promise(function (resolve, reject) {
-            resolve([200, 
-                {  
-                    accessToken:  { value: TOKEN, expire: expirationInSeconds },
-                    refreshToken: { value: TOKEN, expire: expirationInSeconds } 
+            resolve([200,
+                {
+                    accessToken: { value: TOKEN, expire: expirationInSeconds },
+                    refreshToken: { value: TOKEN, expire: expirationInSeconds }
                 }]);
         });
     })
@@ -149,6 +169,14 @@ export async function  configureFakeBackend() {
         });
     });
 
+    mock.onGet('/menu/apps?branchId=1&brandId=2').reply(function (config) {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve([200, deliveryApps]);
+            }, 1000);
+        });
+    });
+
     mock.onGet('/product?branchId=1').reply(function (config) {
         return new Promise(function (resolve, reject) {
             setTimeout(function () {
@@ -211,8 +239,9 @@ export async function  configureFakeBackend() {
                     role: Role.ADMIN,
                     branchIds: [1],
                     scopes: ['report'],
-                    token:  { value: TOKEN, expire: Date.now() / 1000 },
-                    refreshToken: { value: TOKEN, expire: Date.now() / 1000 }                };
+                    token: { value: TOKEN, expire: Date.now() / 1000 },
+                    refreshToken: { value: TOKEN, expire: Date.now() / 1000 }
+                };
                 users.push(newUser);
 
                 resolve([200, newUser]);
@@ -264,7 +293,15 @@ export async function  configureFakeBackend() {
     mock.onGet('/order/delivery?branchId=1?').reply(function (config) {
         return new Promise(function (resolve, reject) {
             setTimeout(function () {
-                resolve([200,  { docs: fakeOrders }]);
+                resolve([200, { docs: fakeOrders }]);
+            }, 1000);
+        });
+    });
+
+    mock.onGet(/\/order\?branchId=\d+&page=\d+/).reply(function (config) {
+        return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+                resolve([200, { docs: fakeOrders }]);
             }, 1000);
         });
     });
