@@ -1,6 +1,6 @@
 # Restaurant Demo
 
-This is a Front-end React proyect with Bootstrap that simulates a web app to administer a Restaurant.
+This is a Front-end React proyect with Bootstrap that simulates a web app to manage a Restaurant.
 
 ## Usage
 
