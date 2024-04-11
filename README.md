@@ -6,6 +6,7 @@ This is a Front-end React proyect with Bootstrap that simulates a web app to man
 
 - Install packages with `npm install` or `yarn install`
 - Start proyect with command `npm run start` or `yarn start`
+- Go to `http://localhost:3000`
 
 ## Context
 
